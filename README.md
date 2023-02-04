@@ -1,4 +1,5 @@
 DATOS GENERALES
+<br>
 LINK Video sobre funcionamiento de la app
 <br>
 Este es el link de awesome, pero no todos lo pueden ver:
