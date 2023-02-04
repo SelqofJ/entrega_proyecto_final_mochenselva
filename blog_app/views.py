@@ -80,10 +80,6 @@ class PosteosDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('listar_posteos')
     template_name = "blog_app/confirm_eliminacion_posteo.html"
 
-    def form_valid(self, form):
-        form.instance.autor = self.request.user
-        return super(PosteosDeleteView, self).form_valid(form)
-
     def dispatch(self, request, *args, **kwargs):
         post = self.get_object()
         if post.autor != self.request.user:
@@ -170,7 +166,7 @@ def agregar_avatar(request):
         template_name='blog_app/form_avatar.html',
         context={'form': formulario},
     )
-
+# ACERCA DE MI
 def about(request):
     return render(request, 'blog_app/acerca_de_mi.html')
 

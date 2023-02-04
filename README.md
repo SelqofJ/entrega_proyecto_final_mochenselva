@@ -1,6 +1,8 @@
 DATOS GENERALES
-
+LINK Video sobre funcionamiento de la app
 <br>
+https://www.awesomescreenshot.com/video/14538140?key=3e23f69945b5f420c1c7253333bca463
+<br><br>
 Blog para hablar de todo un poco(en contruccion)
 <br>
 Codigo Python 3.11/Django GIT Version 2.39.0 trabajado desde  VSC en Windows
