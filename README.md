@@ -1,7 +1,13 @@
 DATOS GENERALES
 LINK Video sobre funcionamiento de la app
 <br>
+Este es el link de awesome, pero no todos lo pueden ver:
 https://www.awesomescreenshot.com/video/14538140?key=3e23f69945b5f420c1c7253333bca463
+
+Este es el link de mi drive pubico:
+https://drive.google.com/file/d/10XYj2vPztZ-7qiBre7ppHsHg7eDJ6GNg/view?usp=share_link
+
+
 <br><br>
 Blog para hablar de todo un poco(en contruccion)
 <br>
