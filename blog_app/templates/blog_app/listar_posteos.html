@@ -9,8 +9,15 @@
 <tbody>
   {% if object_list %}
 
+
   {% for post in object_list %}
+  <td>
+    {% if post.imagen %}
+      <img src="{{ post.imagen.url }}" alt="Imagen del post" width="100">
+    {% endif %}
+  </td>
     <tr>
+      <br>
       <td> <b>Titulo: </b> {{ post.titulo_posteo }}</td>
       <br>
       <td> <b>Subtitulo: </b> {{ post.subtitulo_posteo }}</td> 

@@ -3,18 +3,21 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from blog_app.models import Posteos, Avatar
 
-class PosteosFormulario(forms.Form):
+class PosteosFormulario(forms.ModelForm):
 
-    class Meta:
-        model = Posteos
-        fields =['titulo_posteo', 'subtitulo_posteo','posteo','autor']
-        widgets = {
+        class Meta:
+         model = Posteos
+         fields =['titulo_posteo', 'subtitulo_posteo','posteo','autor', 'imagen']
+
+         widgets = {
             'autor': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id':'usuario_id', 'type':'hidden'}),
             'titulo_posteo' : forms.TextInput(attrs={'class': 'form-control'}),
             'subtitulo_posteo' : forms.TextInput(attrs={'class': 'form-control'}),
             'posteo' : forms.TextInput(attrs={'class': 'form-control'}),
-
+            
          }
+
+
 
 class UserRegisterForm(UserCreationForm):
     # Esto es un ModelForm

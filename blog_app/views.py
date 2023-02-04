@@ -9,8 +9,11 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import login, authenticate
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+#from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from blog_app.forms import UserRegisterForm, UserUpdateForm, AvatarFormulario
+from blog_app.forms import UserRegisterForm, UserUpdateForm, AvatarFormulario, PosteosFormulario
+from django.core.exceptions import PermissionDenied
+from django.contrib import messages
 
 
 from blog_app.models import Posteos
@@ -37,21 +40,32 @@ class PosteosListView (ListView):
 
 class PosteosCreateView (LoginRequiredMixin, CreateView):
     model = Posteos
-    fields = ['titulo_posteo', 'subtitulo_posteo', 'posteo', 'autor']
+    form_class= PosteosFormulario
     success_url = reverse_lazy('listar_posteos')
     template_name = "blog_app/form_posteo.html"
         
         
     def form_valid(self, form):
-        form.instance.usuario = self.request.user
+        form.instance.autor = self.request.user
         return super(PosteosCreateView, self).form_valid(form)
 
 
 class PosteosUpdateView(LoginRequiredMixin,UpdateView):
-    model = Posteos
-    fields = ['titulo_posteo', 'subtitulo_posteo','posteo','autor']
-    success_url = reverse_lazy('listar_posteos')
-    template_name = "blog_app/form_posteo.html"
+        model = Posteos
+        fields = ['titulo_posteo', 'subtitulo_posteo','posteo','autor','imagen']
+        success_url = reverse_lazy('listar_posteos')
+        template_name = "blog_app/form_posteo.html"
+
+        def form_valid(self, form):
+            form.instance.autor = self.request.user
+            return super(PosteosUpdateView, self).form_valid(form)
+            
+        def dispatch(self, request, *args, **kwargs):
+            post = self.get_object()
+            if post.autor != self.request.user:
+                messages.error(request, "No estás autorizado para realizar esta acción")
+                return redirect("listar_posteos")
+            return super().dispatch(request, *args, **kwargs)
 
 
 class PosteosDetailView(DetailView):
@@ -65,7 +79,19 @@ class PosteosDeleteView(LoginRequiredMixin, DeleteView):
     model = Posteos
     success_url = reverse_lazy('listar_posteos')
     template_name = "blog_app/confirm_eliminacion_posteo.html"
-    
+
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super(PosteosDeleteView, self).form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        post = self.get_object()
+        if post.autor != self.request.user:
+            messages.error(request, "No estás autorizado para realizar esta acción")
+            return redirect("listar_posteos")
+        return super().dispatch(request, *args, **kwargs)
+
+   
 
 
 #LOGIN/REGISTER USER/LOGOUT
@@ -147,4 +173,6 @@ def agregar_avatar(request):
 
 def about(request):
     return render(request, 'blog_app/acerca_de_mi.html')
+
+
 

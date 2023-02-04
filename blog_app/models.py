@@ -8,8 +8,8 @@ class Posteos (models.Model):
     subtitulo_posteo = models.CharField(max_length=72, unique=True )
     posteo = models.TextField(unique=True)
     fecha_posteo = models.DateTimeField(auto_now_add=True)
-    autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-      
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True) 
+    imagen = models.ImageField(null=True, blank=True, upload_to='imagen_posteo')
       
     def __str__(self):
         return f"Titulo {self.titulo_posteo}, Subtitulo {self.subtitulo_posteo},Posteo {self.posteo}, Fecha {self.fecha_posteo}, Autor {self.autor}"
